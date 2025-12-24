@@ -1,13 +1,252 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Tailwind CSS v3 */
+@import 'antd/dist/reset.css'; /* Add this line */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #1A2B3C;
+    --color-secondary: #00BFA5;
+    --color-bg-light: #F0F2F5;
+    --color-text-dark: #333333;
+    --color-accent: #FF6B6B;
+    --color-success: #00BFA5;
+    --color-warning: #FFA726;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-dark);
+    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    color: var(--color-primary);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-secondary);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary);
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply bg-[var(--color-secondary)] text-white px-6 py-3 rounded-lg font-semibold
+    hover:brightness-110 transition-all shadow-md active:scale-95 border-none cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply bg-[var(--color-primary)] text-white px-6 py-3 rounded-lg font-semibold
+    hover:brightness-110 transition-all shadow-md active:scale-95;
+  }
+
+  .btn-outline {
+    @apply border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] px-6 py-3 
+    rounded-lg font-semibold hover:bg-[var(--color-secondary)] hover:text-white transition-all;
+  }
+
+  .btn-danger {
+    @apply bg-[var(--color-accent)] text-white px-6 py-3 rounded-lg font-semibold
+    hover:brightness-110 transition-all shadow-md active:scale-95;
+  }
+
+  /* Inputs */
+  .input-ui {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-gray-300 outline-none 
+    focus:ring-2 focus:border-[var(--color-secondary)]
+    bg-white text-gray-800 placeholder:text-gray-400 transition-all;
+  }
+  
+  /* Add custom focus ring */
+  .input-ui:focus {
+    --tw-ring-color: rgba(0, 191, 165, 0.3);
+  }
+
+  .input-search {
+    @apply input-ui pl-12;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg
+    transition-all duration-300 overflow-hidden;
+  }
+
+  .card-hover {
+    @apply card hover:scale-[1.02] cursor-pointer;
+  }
+
+  /* Badges */
+  .badge-new {
+    @apply bg-[var(--color-secondary)] text-white text-xs font-bold px-3 py-1 
+    rounded-full uppercase tracking-wide;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  /* Form Sections */
+  .form-section {
+    @apply bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-200;
+  }
+
+  .form-label {
+    @apply block text-sm font-semibold text-gray-700 mb-2;
+  }
+
+  /* Alert Messages */
+  .alert-success {
+    @apply bg-green-50 border-2 border-green-200 text-green-800 px-6 py-4 
+    rounded-lg flex items-start gap-3;
+  }
+
+  .alert-error {
+    @apply bg-red-50 border-2 border-red-200 text-red-800 px-6 py-4 
+    rounded-lg flex items-start gap-3;
+  }
+
+  .alert-warning {
+    @apply bg-yellow-50 border-2 border-yellow-200 text-yellow-800 px-6 py-4 
+    rounded-lg flex items-start gap-3;
+  }
+
+  .alert-info {
+    @apply bg-blue-50 border-2 border-blue-200 text-blue-800 px-6 py-4 
+    rounded-lg flex items-start gap-3;
+  }
+
+  /* Loading Spinner */
+  .spinner {
+    @apply animate-spin rounded-full border-b-2 border-[var(--color-secondary)];
+  }
+
+  /* Property Card Specific */
+  .property-card-image {
+    @apply w-full h-48 object-cover transition-transform duration-300 hover:scale-105;
+  }
+
+  .price-tag {
+    @apply text-2xl font-bold text-[var(--color-secondary)];
+  }
+
+  /* Modal Overlay */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4;
+  }
+
+  .modal-content {
+    @apply bg-white rounded-xl shadow-2xl w-full max-h-[90vh] overflow-hidden flex flex-col;
+  }
+
+  /* Scrollable Container */
+  .scrollable-form {
+    @apply max-h-[calc(100vh-200px)] overflow-y-auto pr-2;
+  }
+
+  /* Selection Button - FIXED */
+  .selection-btn {
+    @apply p-4 border-2 rounded-lg text-center transition-all cursor-pointer
+    border-gray-300 hover:border-[var(--color-secondary)];
+  }
+
+  .selection-btn-active {
+    @apply selection-btn border-[var(--color-secondary)] text-[var(--color-secondary)];
+  }
+  
+  /* Add background separately for active state */
+  .selection-btn-active {
+    background-color: rgba(0, 191, 165, 0.1);
+  }
+
+  /* Amenity Button - FIXED */
+  .amenity-btn {
+    @apply flex flex-col items-center justify-center p-3 rounded-lg border-2 
+    transition-all cursor-pointer border-gray-300 hover:border-[var(--color-secondary)];
+  }
+
+  .amenity-btn-active {
+    @apply amenity-btn border-[var(--color-secondary)] text-[var(--color-secondary)];
+  }
+  
+  /* Add background separately */
+  .amenity-btn-active {
+    background-color: rgba(0, 191, 165, 0.1);
+  }
+
+  /* Property Type Selector - FIXED */
+  .property-type-btn {
+    @apply p-4 border-2 rounded-lg text-center transition-all cursor-pointer
+    border-gray-300 hover:border-[var(--color-secondary)];
+  }
+
+  .property-type-btn-active {
+    @apply property-type-btn border-[var(--color-secondary)] text-[var(--color-secondary)] font-semibold;
+  }
+  
+  /* Add background separately */
+  .property-type-btn-active {
+    background-color: rgba(0, 191, 165, 0.1);
+  }
+  .form-section-compact {
+  @apply bg-white rounded-xl shadow-sm p-4 mb-4 border border-gray-200;
+}
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shadow-custom {
+    box-shadow: 0 10px 30px -5px rgba(0, 191, 165, 0.2);
+  }
+
+  .hover-lift {
+    transition: transform 300ms;
+  }
+  .hover-lift:hover {
+    transform: translateY(-1px);
+  }
 }
