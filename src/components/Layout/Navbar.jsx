@@ -13,17 +13,35 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[var(--color-primary)] text-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 h-24 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 text-2xl font-bold tracking-tight">
-          <div className="bg-white text-[var(--color-primary)] w-9 h-9 flex items-center justify-center rounded-lg">R</div>
-          <span>Room<span className="text-[var(--color-secondary)]">Rental</span></span>
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-2xl font-bold tracking-tight"
+        >
+          {/* Logo Image */}
+          <img
+            src="/logo.png"
+            alt="LivoRent Logo"
+            className="w-24 h-24 object-contain"
+          />
+
+          {/* Brand Text */}
+          <span>
+            Livo
+            <span className="text-[var(--color-secondary)]">Rent</span>
+          </span>
         </Link>
+
 
         {/* Navigation Links */}
         <div className="flex items-center gap-8 text-sm font-medium">
           <Link to="/" className="hover:text-[var(--color-secondary)] transition">Find a Room</Link>
-          
+          <Link to="/allProperties" className="hover:text-[var(--color-secondary)] transition">All Properrties</Link>
+          <Link to="/faq" className="hover:text-[var(--color-secondary)] transition">FAQ</Link>
+
+
+
           {!isAuthenticated ? (
             <div className="flex items-center gap-6">
               <Link to="/login" className="hover:text-[var(--color-secondary)] transition">Login</Link>

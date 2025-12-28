@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Booking & QR</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: inline-block; min-width: 300px; }
+        .hidden { display: none; }
+        .btn { padding: 12px 24px; font-size: 16px; cursor: pointer; border: none; border-radius: 6px; transition: 0.3s; margin-top: 15px; }
+        .btn-primary { background-color: #4CAF50; color: white; }
+        .btn-primary:hover { background-color: #45a049; }
+        .btn-verify { background-color: #2196F3; color: white; }
+        .btn-verify:hover { background-color: #1e88e5; }
+        #qr-image { width: 200px; height: 200px; margin: 20px auto; border: 1px solid #eee; padding: 10px; }
+        .status-msg { color: #666; font-style: italic; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Property Booking</h2>
+
+        <div id="booking-section">
+            <p>Ready to book your stay?</p>
+            <button id="create-btn" class="btn btn-primary">Book Now (Rs. 1200)</button>
+        </div>
+
+        <div id="qr-container" class="hidden">
+            <h3>Scan to Pay</h3>
+            <img id="qr-image" src="" alt="Dummy QR Code">
+            
+            <div style="text-align: left; background: #fafafa; padding: 10px; border-radius: 5px;">
+                <p><b>Booking ID:</b> <span id="display-id"></span></p>
+                <p><b>Amount:</b> Rs. 1200</p>
+                <p><b>Expires:</b> <span id="display-expiry"></span></p>
+            </div>
+
+            <button id="verify-btn" class="btn btn-verify">I Have Paid (Verify)</button>
+            <p id="loading-text" class="status-msg hidden">Verifying transaction...</p>
+        </div>
+    </div>
+
+    <script>
+        // Dummy Data configuration
+        const dummyResponse = {
+            bookingId: "BK-2025-9981",
+            // Using a public QR API to generate a dummy image based on the ID
+            qrCode: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BK-2025-9981",
+            expiresAt: new Date(Date.now() + 3600000).toISOString() // 1 hour from now
+        };
+
+        const bookingSection = document.getElementById('booking-section');
+        const qrContainer = document.getElementById('qr-container');
+        const qrImage = document.getElementById('qr-image');
+        const loadingText = document.getElementById('loading-text');
+
+        // ✅ Mock Create Booking
+        document.getElementById('create-btn').addEventListener('click', () => {
+            // Simulate a 1-second network delay
+            document.getElementById('create-btn').innerText = "Processing...";
+            
+            setTimeout(() => {
+                // Set the dummy data to the UI
+                qrImage.src = dummyResponse.qrCode;
+                document.getElementById('display-id').innerText = dummyResponse.bookingId;
+                document.getElementById('display-expiry').innerText = new Date(dummyResponse.expiresAt).toLocaleTimeString();
+
+                bookingSection.classList.add('hidden');
+                qrContainer.classList.remove('hidden');
+            }, 1000);
+        });
+
+        // ✅ Mock Verify Payment
+        document.getElementById('verify-btn').addEventListener('click', () => {
+            loadingText.classList.remove('hidden');
+            
+            setTimeout(() => {
+                loadingText.classList.add('hidden');
+                alert("✅ Payment Verified Successfully! Booking " + dummyResponse.bookingId + " is confirmed.");
+                // Optionally reset the view
+                location.reload(); 
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

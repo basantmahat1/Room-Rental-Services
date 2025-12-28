@@ -6,6 +6,7 @@ const PATHS = {
   TENANT_PROPERTIES: '/tenant/properties',
   TENANT_BOOKINGS: '/tenant/bookings',
   TENANT_PROFILE: '/tenant/profile',
+  
 
   // Owner Routes
   OWNER_DASHBOARD: '/owner/dashboard',
@@ -18,7 +19,9 @@ const PATHS = {
   ADMIN_DASHBOARD: '/admin/dashboard',
   ADMIN_USERS: '/admin/users',
   ADMIN_PROPERTIES: '/admin/properties',
+  ADMIN_ADD_PROPERTY: '/admin/add-property',
   ADMIN_SETTINGS: '/admin/settings',
+  ADMIN_PAYMENT_STATUS: '/admin/payment-status',
 
   // Auth Routes
   LOGIN: '/login',

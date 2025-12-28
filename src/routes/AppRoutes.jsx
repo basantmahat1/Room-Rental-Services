@@ -8,11 +8,19 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import AdminLogin from '../pages/Admin/AdminLogin';
 import PropertyDetails from '../pages/Properties/PropertyDetails';
+import PropertyMapPage from '../pages/PropertyMapPage';
+import AllPropertiesPage from '../pages/AllPropertiesPage';
+import FAQ from '../pages/FAQ';
+// import MainLayout from '../components/Layout/common/MainLayout';
+
+
 
 // Tenant Pages
 import TenantDashboard from '../pages/Tenant/TenantDashboard';
 import MyBookings from '../pages/Tenant/MyBookings';
 import MyWishlist from '../pages/Tenant/MyWishlist';
+import PaymentPage from '../pages/Tenant/PaymentPage';
+
 
 // Owner Pages
 import OwnerDashboard from '../pages/Owner/OwnerDashboard';
@@ -24,17 +32,30 @@ import ManageBookings from '../pages/Owner/ManageBookings';
 import AdminDashboard from '../pages/Admin/AdminDashboard';
 import AdminUsers from '../pages/Admin/AdminUsers';
 import AdminProperties from '../pages/Admin/AdminProperties';
+import AdminDeletedProperties from '../pages/Admin/AdminDeletedProperties';
 import AdminSettings from '../pages/Admin/AdminSettings';
+import PaymentVerification from '../pages/Admin/PaymentVerification';
 
 const AppRoutes = () => {
+  
   return (
     <Routes>
       {/* ================== PUBLIC ROUTES ================== */}
+      
+      {/* <Route element={<MainLayout />} /> */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/properties/:id" element={<PropertyDetails />} />
+      <Route path="/properties/:id/map" element={<PropertyMapPage />} />
+<Route path="/allproperties" element={<AllPropertiesPage />} />
+<Route path="/faq" element={<FAQ />} />
+
+
+
+
+
 
       {/* ================== TENANT ROUTES ================== */}
       <Route element={<ProtectedRoute allowedRoles={['tenant']} />}>
@@ -42,6 +63,8 @@ const AppRoutes = () => {
         <Route path="/tenant/bookings" element={<MyBookings />} />
         <Route path="/tenant/wishlist" element={<MyWishlist />} />
         <Route path="/tenant/properties" element={<Home />} />
+        <Route path="/tenant/payment/:bookingId" element={<PaymentPage />} />
+
       </Route>
 
       {/* ================== OWNER ROUTES ================== */}
@@ -57,7 +80,11 @@ const AppRoutes = () => {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/properties" element={<AdminProperties />} />
+        <Route path="/admin/properties/deleted-drafts" element={<AdminDeletedProperties />} />
+        <Route path="/admin/add-property" element={<AddProperty />} />
         <Route path="/admin/settings" element={<AdminSettings />} />
+        <Route path="/admin/payment-status" element={<PaymentVerification />} />
+        <Route path="/admin/payments" element={<PaymentVerification />} />
 
       </Route>
 

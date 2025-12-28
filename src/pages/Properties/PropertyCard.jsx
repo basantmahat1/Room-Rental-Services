@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { wishlistAPI } from '../../services/api';
+                import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
 const PropertyCard = ({ property, onWishlistChange }) => {
     const { user } = useAuth();
@@ -131,13 +132,22 @@ const PropertyCard = ({ property, onWishlistChange }) => {
                 </div>
 
                 {/* Wishlist */}
-                <button
-                    onClick={handleWishlistToggle}
-                    disabled={loading}
-                    className={`absolute top-3 right-3 p-2.5 rounded-full shadow-md transition-all ${inWishlist ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-700'}`}
-                >
-                    {loading ? '...' : (inWishlist ? '❤️' : '🤍')}
-                </button>
+
+
+<button
+  onClick={handleWishlistToggle}
+  disabled={loading}
+  className="absolute top-3 right-3 cursor-pointer transition-transform hover:scale-125"
+>
+  {loading ? (
+    '...'
+  ) : inWishlist ? (
+    <HeartFilled style={{ color: '#ff4d4f', fontSize: '24px' }} />
+  ) : (
+    <HeartOutlined style={{ color: '#4B5563', fontSize: '24px' }} />
+  )}
+</button>
+
                 
                 {/* Dots */}
                 {images.length > 1 && (
@@ -180,9 +190,20 @@ const PropertyCard = ({ property, onWishlistChange }) => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2">
-                    <button className="flex-grow bg-[#00BFA5] text-white text-center py-2.5 rounded-xl hover:brightness-110 transition-all font-bold text-sm shadow-sm active:scale-95">
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // This will work through the parent Link
+                      }}
+                      className="flex-grow bg-[#00BFA5] text-white text-center py-2.5 rounded-xl hover:brightness-110 transition-all font-bold text-sm shadow-sm active:scale-95">
                         View Details
                     </button>
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = `/properties/${property.id}/map`;
+                      }} className="p-2.5 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-100 border border-blue-100" title="View on Map">📍</button>
                     <button onClick={handleShare} className="p-2.5 bg-gray-50 text-gray-400 rounded-xl hover:bg-gray-100 border border-gray-100" title="Share">🔗</button>
                     <button onClick={handleWhatsAppShare} className="p-2.5 bg-green-50 text-green-600 rounded-xl hover:bg-green-100 border border-green-100" title="WhatsApp Share">💬</button>
                 </div>

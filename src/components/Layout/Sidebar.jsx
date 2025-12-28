@@ -15,7 +15,8 @@ import {
   BankOutlined,
   TeamOutlined,
   SettingOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  WalletOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, Avatar, Typography, ConfigProvider } from 'antd';
 
@@ -44,7 +45,9 @@ const Sidebar = () => {
       [PATHS.ADMIN_DASHBOARD]: 'admin-dashboard',
       [PATHS.ADMIN_USERS]: 'admin-users',
       [PATHS.ADMIN_PROPERTIES]: 'admin-properties',
+      [PATHS.ADMIN_ADD_PROPERTY]: 'admin-add-property',
       [PATHS.ADMIN_SETTINGS]: 'admin-settings',
+      [PATHS.ADMIN_PAYMENT_STATUS]: 'payment-status',
     };
     return pathMap[location.pathname] || '';
   };
@@ -68,7 +71,10 @@ const Sidebar = () => {
     { key: 'admin-dashboard', icon: <DashboardOutlined />, label: 'Dashboard', onClick: () => navigate(PATHS.ADMIN_DASHBOARD) },
     { key: 'admin-users', icon: <TeamOutlined />, label: 'Users', onClick: () => navigate(PATHS.ADMIN_USERS) },
     { key: 'admin-properties', icon: <BankOutlined />, label: 'Properties', onClick: () => navigate(PATHS.ADMIN_PROPERTIES) },
+    { key: 'admin-add-property', icon: <PlusOutlined />, label: 'Advertisement', onClick: () => navigate(PATHS.ADMIN_ADD_PROPERTY) },
     { key: 'admin-settings', icon: <SettingOutlined />, label: 'Settings', onClick: () => navigate(PATHS.ADMIN_SETTINGS) },
+    { key: 'payment-status', icon: <WalletOutlined />, label: 'Payment Status', onClick: () => navigate(PATHS.ADMIN_PAYMENT_STATUS) },
+
   ];
 
   const getMenuItems = () => {

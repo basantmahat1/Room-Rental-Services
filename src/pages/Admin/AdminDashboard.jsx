@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { authAPI } from '../../services/api';
+import AdminCharts from '../Admin/AdminCharts';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -142,74 +143,8 @@ const AdminDashboard = () => {
         )}
       </div>
 
-      {/* Management Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* User Management */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">User Management</h2>
-          <div className="space-y-3">
-            {[
-              { type: 'Tenants', count: 856, change: '+5.2%' },
-              { type: 'Owners', count: 412, change: '+3.8%' },
-              { type: 'Admins', count: 3, change: '0%' },
-            ].map((item) => (
-              <div key={item.type} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="font-semibold">{item.type}</div>
-                <div className="flex items-center space-x-4">
-                  <div className="font-bold">{item.count}</div>
-                  <div className={`px-2 py-1 rounded text-sm ${
-                    item.change.startsWith('+') 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-gray-100 text-gray-800'
-                  }`}>
-                    {item.change}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <button className="w-full mt-4 btn-primary">
-            View All Users
-          </button>
-        </div>
-
-        {/* Platform Stats */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Platform Statistics</h2>
-          <div className="space-y-4">
-            <div>
-              <div className="flex justify-between mb-1">
-                <span className="text-sm font-medium text-gray-700">User Satisfaction</span>
-                <span className="text-sm font-medium text-gray-700">92%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-green-600 h-2 rounded-full" style={{ width: '92%' }}></div>
-              </div>
-            </div>
-            
-            <div>
-              <div className="flex justify-between mb-1">
-                <span className="text-sm font-medium text-gray-700">System Uptime</span>
-                <span className="text-sm font-medium text-gray-700">99.9%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '99.9%' }}></div>
-              </div>
-            </div>
-            
-            <div>
-              <div className="flex justify-between mb-1">
-                <span className="text-sm font-medium text-gray-700">Conversion Rate</span>
-                <span className="text-sm font-medium text-gray-700">68%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-purple-600 h-2 rounded-full" style={{ width: '68%' }}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    
+<AdminCharts/>
       {/* Recent Activity */}
       <div className="bg-white shadow rounded-lg p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Platform Activity</h2>

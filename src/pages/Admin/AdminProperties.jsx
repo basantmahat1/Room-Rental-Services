@@ -17,7 +17,8 @@ const AdminProperties = () => {
   const loadProperties = async (page) => {
     setLoading(true);
     try {
-      const response = await propertyAPI.getAll({ limit, offset: (page - 1) * limit });
+      const params = { limit, offset: (page - 1) * limit };
+      const response = await propertyAPI.getAll(params);
       setProperties(response.data.properties);
       setTotalProperties(response.data.total);
     } catch (error) {
@@ -39,13 +40,14 @@ const AdminProperties = () => {
     }
   };
 
+
+
   const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this property?')) return;
+    if (!confirm('Are you sure you want to delete this property? It will move to Deleted Items.')) return;
 
     try {
       await propertyAPI.delete(id);
-      setProperties(properties.filter(p => p.id !== id));
-      alert('Property deleted successfully');
+      loadProperties(currentPage);
     } catch (error) {
       alert('Failed to delete property');
     }
@@ -68,8 +70,14 @@ const AdminProperties = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Property Management</h1>
-        <div className="text-gray-600">
-          Total: {totalProperties} properties
+        <div className="flex items-center gap-4">
+          <div className="text-gray-600">Total: {totalProperties} properties</div>
+          <Link
+            to="/admin/properties/deleted-drafts"
+            className="px-3 py-1 bg-red-100 rounded text-red-700 hover:bg-red-200"
+          >
+            Deleted Drafts
+          </Link>
         </div>
       </div>
 
@@ -163,6 +171,13 @@ const AdminProperties = () => {
                           Available
                         </span>
                       )}
+                      <div>
+                        {property.status === 1 ? (
+                          <span className="px-2 text-xs font-semibold rounded-full bg-green-50 text-green-800">Published</span>
+                        ) : (
+                          <span className="px-2 text-xs font-semibold rounded-full bg-yellow-50 text-yellow-800">Draft</span>
+                        )}
+                      </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900">

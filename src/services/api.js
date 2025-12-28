@@ -90,6 +90,11 @@ export const propertyAPI = {
   }),
   delete: (id) => api.delete(`/properties/${id}`),
   verify: (id, isVerified) => api.patch(`/properties/${id}/verify`, { is_verified: isVerified }),
+  publish: (id) => api.patch(`/properties/${id}/publish`),
+  updateStatus: (id, status) => api.patch(`/properties/${id}/status`, { status }),
+  getDeleted: (params) => api.get('/properties/deleted-drafts', { params }),
+  restore: (id) => api.patch(`/properties/${id}/restore`),
+  deletePermanently: (id) => api.delete(`/properties/${id}/permanently`),
 };
 
 // Booking API
@@ -127,5 +132,14 @@ export const mapsAPI = {
     params: { latitude, longitude, type }
   }),
 };
+// frontend/src/services/api.js (ADD THESE TO YOUR EXISTING API FILE)
 
-export default api;
+/// ✅ CORRECT (yo use garnu)
+export const paymentAPI = {
+  create: (data) => api.post('/payments', data),
+  getByBooking: (bookingId) => api.get(`/payments/booking/${bookingId}`),
+  getStatus: (paymentId) => api.get(`/payments/status/${paymentId}`),
+  submitProof: (data) => api.post('/payments/submit-proof', data),
+  getAllPayments: (params) => api.get('/payments/admin/all', { params }),
+  verifyPayment: (paymentId, data) => api.patch(`/payments/admin/verify/${paymentId}`, data)
+};

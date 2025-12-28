@@ -209,48 +209,20 @@ const MyBookings = () => {
                       </div>
                     )}
 
-                    {/* Actions - Compact */}
-                    <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-3 border-t border-gray-200">
-                      <div className="text-xs text-gray-600">
-                        ID: <span className="font-mono font-bold">{booking.id}</span>
-                      </div>
+               {booking.status === 'accepted' && booking.payment_status !== 'paid' && (
+  <Link
+    to={`/tenant/payment/${booking.id}`}
+    className="btn-primary bg-green-600 hover:bg-green-700 px-3 py-1.5 text-sm font-bold"
+  >
+    💳 Pay Now
+  </Link>
+)}
 
-                      <div className="flex flex-wrap gap-2">
-                        {booking.status === 'pending' && (
-                          <button
-                            onClick={() => handleCancel(booking.id)}
-                            className="btn-secondary bg-red-100 text-red-700 border-red-300 hover:bg-red-200 hover:border-red-400 px-3 py-1.5 text-sm font-bold"
-                          >
-                            ❌ Cancel
-                          </button>
-                        )}
-
-                        {booking.status === 'accepted' && booking.owner_phone && (
-                          <a
-                            href={`https://wa.me/${booking.owner_phone.replace(/[^0-9]/g, '')}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-primary bg-green-600 hover:bg-green-700 border-green-600 px-3 py-1.5 text-sm font-bold"
-                          >
-                            💬 WhatsApp
-                          </a>
-                        )}
-
-                        <Link
-                          to={`/properties/${booking.property_id}`}
-                          className="btn-primary px-3 py-1.5 text-sm font-bold"
-                        >
-                          👁️ View
-                        </Link>
-
-                        <button
-                          onClick={() => window.print()}
-                          className="btn-secondary px-3 py-1.5 text-sm font-bold"
-                        >
-                          🖨️ Print
-                        </button>
-                      </div>
-                    </div>
+{booking.payment_status === 'paid' && (
+  <span className="px-3 py-1.5 text-sm font-bold bg-green-100 text-green-800 rounded-lg">
+    ✓ Paid
+  </span>
+)}
                   </div>
                 </div>
               </div>
